@@ -1,6 +1,6 @@
 ### Code implementation of paper: Separation and Concentration in Deep Networks
 This repository contains the code to reproduce experiments in the paper: [Separation and Concentration in Deep Networks](https://openreview.net/forum?id=8HhkbjrWLdE) 
-currently under review at ICLR 2021 conference.
+currently accepted at ICLR 2021 conference.
 
 ### Requirements
 Our code is designed to run on GPU using [PyTorch](https://pytorch.org/) framework, while scattering transforms are computed using the [Kymatio software package](https://github.com/kymatio/kymatio)
@@ -16,12 +16,12 @@ You can install the PyTorch and skcuda packages by:
 `pip install torch torchvision tensorboard scikit-cuda cupy`
 
 For a multi-GPU version of Kymatio, you can use the _multigpu_ branch of our Kymatio fork 
-https://github.com/iclr2021-paper1937/kymatio
+https://github.com/j-zarka/kymatio
 
 To install this branch:
 
 ```
-git clone -b multigpu https://github.com/iclr2021-paper1937/kymatio.git
+git clone -b multigpu https://github.com/j-zarka/kymatio.git
 cd kymatio
 pip install -r requirements.txt
 pip install .
@@ -54,13 +54,13 @@ For classification on MNIST:
 
 ```
 python main.py  --dataset mnist -a analysis -j 10 --frame-kernel-size 14 --frame-width 2048 --frame-stride 7 
---epochs 200 --batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 60 --non-linearity [relu/softshrink/absolute]
+--epochs 300 --batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 70 --non-linearity [relu/softshrink/absolute]
 --dir path/to/dir
 ```
 - Using scattering tree:
 ```
-python main.py  --dataset mnist -a scatnet -j 10 --scattering-J 3 --P-proj-size 128 --epochs 200 --batch-size 128 
---lr 0.01 --learning-rate-adjust-frequency 60 --dir path/to/dir 
+python main.py  --dataset mnist -a scatnet -j 10 --scattering-J 3 --P-proj-size 128 --epochs 300 --batch-size 128 
+--lr 0.01 --learning-rate-adjust-frequency 70 --dir path/to/dir 
 ```     
 
 For classification on CIFAR10:
@@ -68,48 +68,48 @@ For classification on CIFAR10:
 
 ```
 python main.py  --dataset cifar10 -a analysis -j 10 --frame-kernel-size 8 --frame-width 8192 --frame-stride 4 
---epochs 200 --batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 60 --non-linearity [relu/softshrink/absolute]
+--epochs 300 --batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 70 --non-linearity [relu/softshrink/absolute]
 --dir path/to/dir
 ```
 
 - Using scattering tree:
 ```
-python main.py  --dataset cifar10 -a scatnet -j 10 --scattering-J 3 --P-proj-size 128 --epochs 200 --batch-size 128 
---lr 0.01 --learning-rate-adjust-frequency 60 --dir path/to/dir 
+python main.py  --dataset cifar10 -a scatnet -j 10 --scattering-J 3 --P-proj-size 128 --epochs 300 --batch-size 128 
+--lr 0.01 --learning-rate-adjust-frequency 70 --dir path/to/dir 
 ```  
 
 - Using scattering with learned projections:
 ```
-python main.py  --dataset cifar10 -a scatnetblock -j 10 --n-blocks 4 --P-proj-size 64 128 256 512 --epochs 200 
---batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 60 --dir path/to/dir  
+python main.py  --dataset cifar10 -a scatnetblock -j 10 --n-blocks 4 --P-proj-size 64 128 256 512 --epochs 300 
+--batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 70 --dir path/to/dir  
 ``` 
 
 - Using scattering with learned projections and concentration:
 ```
  python main.py  --dataset cifar10 -a scatnetblockanalysis -j 10 --n-blocks 4  
 --P-proj-size 64 128 256 512 --non-linearity [relu/softshrink] --frame-width 1024 2048 4096 8192
---epochs 200 --batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 60 --dir path/to/dir
+--epochs 300 --batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 70 --dir path/to/dir
 ```
 
 For classification on ImageNet:
 
 - Using scattering tree:
 ```
-python main.py  --dataset imagenet -a scatnet -j 10 --scattering-J 4 --P-proj-size 256 --epochs 150 --batch-size 128 
---lr 0.01 --learning-rate-adjust-frequency 45 --avg-ker-size 5 --dir path/to/dir --data path/to/imagenet
+python main.py  --dataset imagenet -a scatnet -j 10 --scattering-J 4 --P-proj-size 256 --epochs 200 --batch-size 128 
+--lr 0.01 --learning-rate-adjust-frequency 60 --avg-ker-size 5 --dir path/to/dir --data path/to/imagenet
 ```  
 
 - Using scattering with learned projections:
 ```
 python main.py  --dataset imagenet -a scatnetblock -j 10 --n-blocks 6 --P-proj-size 64 128 256 512 512 512
---epochs 150 --batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 45 --dir path/to/dir --data path/to/imagenet
+--epochs 200 --batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 60 --dir path/to/dir --data path/to/imagenet
 ``` 
 
 - Using scattering with learned projections and concentration:
 ```
-python main.py  --dataset imagenet -a scatnetblockanalysis -j 10 --n-blocks 6 --epochs 150 
+python main.py  --dataset imagenet -a scatnetblockanalysis -j 10 --n-blocks 6 --epochs 200 
 --P-proj-size 64 128 256 512 512 512 --non-linearity [relu/softshrink] --frame-width 512 1024 1024 2048 2048 2048
---batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 45 --dir path/to/dir --data path/to/imagenet
+--batch-size 128 --lr 0.01 --learning-rate-adjust-frequency 60 --dir path/to/dir --data path/to/imagenet
 ```
 
 For more details, please see below usage.
